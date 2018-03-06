@@ -1,0 +1,415 @@
+<CButton>:
+    #canvas.before:
+    #    Color:
+    #        rgba: .2, .2, .3, 1
+    #    Rectangle:
+    #        pos: self.pos
+    #        size: self.size
+    font_name: './font-awesome-4.6.3/fonts/fontawesome-webfont.ttf'
+    text_size: self.size
+    font_size: '30sp'
+    halign: 'center'
+    valign: 'middle'
+    background_normal: ''
+	#.2, .2, .3, 1
+    background_color: 1, 1, 1, 1
+	color: .251, .878, .816, 1
+    text: unichr(0xf111)
+
+<UButton>:
+    background_normal: ''
+	# .2, .2, .3, 1
+    background_color: .125, .698, .667, 1
+
+<CIcon>:
+    font_name: './font-awesome-4.6.3/fonts/fontawesome-webfont.ttf'
+
+<HelpScreen>:
+    BoxLayout:
+        canvas.before:
+            Color:
+                rgba: .973, .973, 1, 1
+            Rectangle:
+                pos: self.pos
+                size: self.size
+        
+        orientation: 'vertical'
+        
+        spacing: 40
+        padding: 40
+
+        BoxLayout:
+            orientation: 'horizontal'
+            size_hint: 1, .1
+        
+            CButton:
+                font_size: '26sp'
+                background_color: .973, .973, 1, 1
+                color: .125, .698, .667, 1
+                text: unichr(0xf0a8)
+                size_hint: .1, 1
+                on_release:
+                    root.back()
+        
+            Label:
+                text: 'About Py[b]Checkers[/b]'
+                text_size: self.size
+                font_size: '28sp'
+                halign: 'center'
+                valign: 'middle'
+                color: .125, .698, .667, 1
+                markup: True
+                size_hint: .9, 1
+                
+        ScrollView:
+            do_scroll_x: False
+            size_hint: 1, .9
+            
+            Label:
+                text: "[size=20sp][b]How to play[/b][/size]\n\nThis is a standard Chinese Checkers implementation and the same rules apply:\nThere are two kinds of cells, filled and empty. The player has to 'jump' a button over another in order to remove.\n[b]The goal is to remove all but one button from the table.[/b]\n[b]1.[/b]  Press a filled cell to select a button to move.\n[b]2.[/b]  Select a valid destination to jump to:\n    an empty cell in the same row or column of the selected button that is in just one cell distance from the selected one which is filled, so that the selected one can jump over it to remove.\n[b]A selected button can only jump over filled cells.\nThe selected button can't jump over more than one cells.[/b]\n\n[size=20sp][b]Credits[/b][/size]\n\n[b]The entire application was written on a mobilephone![/b]\n[b]Device:[/b] LG G4\n[b]Language:[/b] Python, Kivy\n[b]Dev env:[/b] QPython\n[b]Developer:[/b] Viktor Daróczi\n[b]Year:[/b] 2016\nOnly packaging was done using a PC.\n\n[b]Enjoy![/b]"
+                text_size: self.width, None
+                halign: 'left'
+                valign: 'top'
+                color: .125, .698, .667, 1
+                markup: True
+                size_hint: 1, None
+                height: self.texture_size[1]
+
+<ResultScreen>:
+    stars: stars
+    message: message
+    
+    BoxLayout:
+        canvas.before:
+            Color:
+                rgba: .973, .973, 1, 1
+            Rectangle:
+                pos: self.pos
+                size: self.size
+        
+        orientation: 'vertical'
+        
+        spacing: 40
+        padding: 40
+        
+        Label:
+            text: 'Congratulations!'
+            text_size: self.size
+            font_size: '40sp'
+            halign: 'center'
+            valign: 'middle'
+            color: .125, .698, .667, 1
+            markup: True
+            size_hint: 1, .1
+        Label:
+            id: message
+            text: 'You\'ve just finished the game'
+            text_size: self.size
+            halign: 'center'
+            valign: 'middle'
+            color: .125, .698, .667, 1
+            markup: True
+            size_hint: 1, .1
+        CIcon:
+            id: stars
+            text: unichr(0xf006) * 3
+            text_size: self.size
+            font_size: '80sp'
+            halign: 'center'
+            valign: 'middle'
+            color: .125, .698, .667, 1
+            size_hint: 1, .6
+        UButton:
+            text: 'Restart'
+            size_hint: 1, .1
+            on_release:
+                root.restart()
+        UButton:
+            text: 'Quit'
+            size_hint: 1, .1
+            on_release:
+                root.leave()
+
+
+<HomeScreen>:
+    BoxLayout:
+        canvas.before:
+            Color:
+                rgba: .973, .973, 1, 1
+            Rectangle:
+                #source: 'data/images/background.jpg'
+                pos: self.pos
+                size: self.size
+        
+        orientation: 'vertical'
+        
+        spacing: 40
+        padding: 40
+
+        Label:
+            text: 'Py[b]Checkers[/b]'
+            text_size: self.size
+            font_size: '40sp'
+            halign: 'center'
+            valign: 'middle'
+            color: .125, .698, .667, 1
+            markup: True
+            size_hint: 1, .8
+        UButton:
+            text: 'Start'
+            size_hint: 1, .1
+            on_release:
+                root.manager.transition.direction = 'left'
+                root.manager.current = 'game'
+        UButton:
+            text: 'Quit'
+            size_hint: 1, .1
+            on_release:
+                root.leave()
+
+<CheckersTable>:
+    cols: 7
+    padding: 5
+    spacing: 5
+    Label
+    Label
+    CButton:
+        id: cr0c2
+        row: 0
+        col: 2
+        on_release: root.onReleaseHandler(cr0c2)
+    CButton:
+        id: cr0c3
+        row: 0
+        col: 3
+        on_release: root.onReleaseHandler(cr0c3)
+    CButton:
+        id: cr0c4
+        row: 0
+        col: 4
+        on_release: root.onReleaseHandler(cr0c4)
+    Label
+    Label
+    Label
+    Label
+    CButton:
+        id: cr1c2
+        row: 1
+        col: 2
+        on_release: root.onReleaseHandler(cr1c2)
+    CButton:
+        id: cr1c3
+        row: 1
+        col: 3
+        on_release: root.onReleaseHandler(cr1c3)
+    CButton:
+        id: cr1c4
+        row: 1
+        col: 4
+        on_release: root.onReleaseHandler(cr1c4)
+    Label
+    Label
+    CButton:
+        id: cr2c0
+        row: 2
+        col: 0
+        on_release: root.onReleaseHandler(cr2c0)
+    CButton:
+        id: cr2c1
+        row: 2
+        col: 1
+        on_release: root.onReleaseHandler(cr2c1)
+    CButton:
+        id: cr2c2
+        row: 2
+        col: 2
+        on_release: root.onReleaseHandler(cr2c2)
+    CButton:
+        id: cr2c3
+        row: 2
+        col: 3
+        on_release: root.onReleaseHandler(cr2c3)
+    CButton:
+        id: cr2c4
+        row: 2
+        col: 4
+        on_release: root.onReleaseHandler(cr2c4)
+    CButton:
+        id: cr2c5
+        row: 2
+        col: 5
+        on_release: root.onReleaseHandler(cr2c5)
+    CButton:
+        id: cr2c6
+        row: 2
+        col: 6
+        on_release: root.onReleaseHandler(cr2c6)
+    CButton:
+        id: cr3c0
+        row: 3
+        col: 0
+        on_release: root.onReleaseHandler(cr3c0)
+    CButton:
+        id: cr3c1
+        row: 3
+        col: 1
+        on_release: root.onReleaseHandler(cr3c1)
+    CButton:
+        id: cr3c2
+        row: 3
+        col: 2
+        on_release: root.onReleaseHandler(cr3c2)
+    CButton:
+        id: cr3c3
+        row: 3
+        col: 3
+        text: ''
+        on_release: root.onReleaseHandler(cr3c3)
+    CButton:
+        id: cr3c4
+        row: 3
+        col: 4
+        on_release: root.onReleaseHandler(cr3c4)
+    CButton:
+        id: cr3c5
+        row: 3
+        col: 5
+        on_release: root.onReleaseHandler(cr3c5)
+    CButton:
+        id: cr3c6
+        row: 3
+        col: 6
+        on_release: root.onReleaseHandler(cr3c6)
+    CButton:
+        id: cr4c0
+        row: 4
+        col: 0
+        on_release: root.onReleaseHandler(cr4c0)
+    CButton:
+        id: cr4c1
+        row: 4
+        col: 1
+        on_release: root.onReleaseHandler(cr4c1)
+    CButton:
+        id: cr4c2
+        row: 4
+        col: 2
+        on_release: root.onReleaseHandler(cr4c2)
+    CButton:
+        id: cr4c3
+        row: 4
+        col: 3
+        on_release: root.onReleaseHandler(cr4c3)
+    CButton:
+        id: cr4c4
+        row: 4
+        col: 4
+        on_release: root.onReleaseHandler(cr4c4)
+    CButton:
+        id: cr4c5
+        row: 4
+        col: 5
+        on_release: root.onReleaseHandler(cr4c5)
+    CButton:
+        id: cr4c6
+        row: 4
+        col: 6
+        on_release: root.onReleaseHandler(cr4c6)
+    Label
+    Label
+    CButton:
+        id: cr5c2
+        row: 5
+        col: 2
+        on_release: root.onReleaseHandler(cr5c2)
+    CButton:
+        id: cr5c3
+        row: 5
+        col: 3
+        on_release: root.onReleaseHandler(cr5c3)
+    CButton:
+        id: cr5c4
+        row: 5
+        col: 4
+        on_release: root.onReleaseHandler(cr5c4)
+    Label
+    Label
+    Label
+    Label
+    CButton:
+        id: cr6c2
+        row: 6
+        col: 2
+        on_release: root.onReleaseHandler(cr6c2)
+    CButton:
+        id: cr6c3
+        row: 6
+        col: 3
+        on_release: root.onReleaseHandler(cr6c3)
+    CButton:
+        id: cr6c4
+        row: 6
+        col: 4
+        on_release: root.onReleaseHandler(cr6c4)
+    Label
+    Label
+
+<CheckersGame>:
+    canvas.before:
+        Color:
+            rgba: .973, .973, 1, 1
+        Rectangle:
+            #source: 'data/images/background.jpg'
+            pos: self.pos
+            size: self.size
+
+    orientation: 'vertical'
+    table: checkers_table
+    
+    spacing: 40
+    padding: 40
+    
+    BoxLayout:
+        orientation: 'horizontal'
+        size_hint: 1, .1
+        
+        CButton:
+            font_size: '26sp'
+            background_color: .973, .973, 1, 1
+            color: .125, .698, .667, 1
+            text: unichr(0xf015)
+            size_hint: .1, 1
+            on_release:
+                root.home()
+        
+        Label:
+            text: 'Py[b]Checkers[/b]'
+            markup: True
+            color: .125, .698, .667, 1
+            size_hint: .8, 1
+    
+        CButton:
+            font_size: '26sp'
+            background_color: .973, .973, 1, 1
+            color: .125, .698, .667, 1
+            text: unichr(0xf059)
+            size_hint: .1, 1
+            on_release:
+                root.info()
+        
+    CheckersTable:
+        id: checkers_table
+        size_hint: 1, .8
+
+    UButton:
+        id: reset_btn
+        text: 'Reset'
+        size_hint: 1, .1
+        on_release: root.reset()
+
+<GameScreen>:
+    game: checkers_game
+    
+    CheckersGame:
+        id: checkers_game
+        

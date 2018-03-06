@@ -1,0 +1,8 @@
+.buildozer
+.kivy
+bin
+.last_tmp.py
+.launch
+.run.log
+*.apk
+*.zip
