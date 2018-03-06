@@ -6,6 +6,16 @@
 
 It's the famous board game presented in a cross-platform app. Tested on Android and Windows and can be packaged to iOS as well.
 
+#### Purpose ####
+
+The app was completely written on a smartphone (LG G4) as a challenge. No desktop computer was used whatsoever except for packaging. Nevertheless it runs not only on smartphones but desktops as well like Linux, Windows or Mac, wherever Python is available.
+
+As an IDE http://www.qpython.com/ was used.
+
+A screenshot of the app running on Linux:
+
+![Linux screenshot](https://raw.githubusercontent.com/auxiliaire/py-checkers/master/PyCheckers%202018-03-06%2020-52-34.png)
+
 #### Requires ####
 
 * Python 2.7 (3 may be an option)
