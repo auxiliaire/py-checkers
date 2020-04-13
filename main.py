@@ -10,7 +10,7 @@ from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.button import Button
 from kivy.properties import ObjectProperty
 
-from checkers.checkersengine import CheckersEngine
+from checkers.checkersengine import CheckersEngine as CE
 
 class CheckersTable(GridLayout):
     selected = ObjectProperty(None, allownone=True)
@@ -19,29 +19,29 @@ class CheckersTable(GridLayout):
         if self.selected == None:
             self.selectCell(cell)
         else:
-            if CheckersEngine.isValidMove(self.ids, self.selected, cell):
+            if CE.isValidMove(self.ids, self.selected, cell):
                 self.move(cell)
                 self.selected = None
-                CheckersEngine.checkGameOver(self.ids, self.onGameOver)
+                CE.checkGameOver(self.ids, self.onGameOver)
             else:
                 self.cancelSelection()
 
     def selectCell(self, cell):
-        if cell.text == CheckersEngine.O:
+        if cell.text == CE.O:
             self.selected = cell
-            cell.text = CheckersEngine.X
+            cell.text = CE.X
 
     def move(self, cell):
-        self.selected.text, CheckersEngine.getMiddleCell(self.ids, self.selected, cell).text, cell.text = CheckersEngine.MOVE
+        self.selected.text, CE.getMiddleCell(self.ids, self.selected, cell).text, cell.text = CE.MOVE
 
     def onGameOver(self, filled):
-        checkersApp.resultScreen.stars.text = CheckersEngine.getStarsResult(filled)
-        checkersApp.resultScreen.message.text = CheckersEngine.getMessage(filled)
+        checkersApp.resultScreen.stars.text = CE.getStarsResult(filled)
+        checkersApp.resultScreen.message.text = CE.getMessage(filled)
         checkersApp.sm.transition.direction = 'left'
         checkersApp.sm.current = 'result'
 
     def cancelSelection(self):
-        self.selected.text = CheckersEngine.O
+        self.selected.text = CE.O
         self.selected = None
 
 class CheckersGame(BoxLayout):
@@ -49,7 +49,7 @@ class CheckersGame(BoxLayout):
     
     def reset(self):
         for cell in self.table.ids:
-            self.table.ids[cell].text = CheckersEngine.O
+            self.table.ids[cell].text = CE.O
         self.table.ids.cr3c3.text = ''
     
     def home(self):
