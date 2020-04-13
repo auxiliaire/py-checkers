@@ -12,11 +12,13 @@ The app was completely written on a smartphone (LG G4) as a challenge. No deskto
 
 As an IDE, the great [QPython](http://www.qpython.com/) was used.
 
-A screenshot of the app running on Linux:
-
-![Linux screenshot](https://raw.githubusercontent.com/auxiliaire/py-checkers/master/PyCheckers%202018-03-06%2020-52-34.png)
+A screenshot of the app running on Windows:
 
 ![Windows screenshot](https://raw.githubusercontent.com/auxiliaire/py-checkers/master/PyCheckers%202020-04-14%2012-05-00.png)
+
+And an older version on Linux:
+
+![Linux screenshot](https://raw.githubusercontent.com/auxiliaire/py-checkers/master/PyCheckers%202018-03-06%2020-52-34.png)
 
 #### Requires ####
 
