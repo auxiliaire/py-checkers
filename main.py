@@ -21,11 +21,11 @@ class UButton(Button):
     pass
 
 class CheckersTable(GridLayout):
-    O = unichr(0xf111)
-    X = unichr(0xf1db)
-    STAR = unichr(0xf005)
-    HOLE = unichr(0xf006)
-    MSG = '{} button(s) remained.'
+    O = chr(0xf111)
+    X = chr(0xf1db)
+    STAR = chr(0xf005)
+    HOLE = chr(0xf006)
+    MSG = '{filled} button{pm} remained.'
     GOAL = '\n[b]Try to achieve three or less to earn stars![/b]'
     COMMENTS = {
     	    3: '\n[b]Not bad![/b]',
@@ -50,7 +50,7 @@ class CheckersTable(GridLayout):
             	    and abs(sourceRow - targetRow) == 2)
             	)
             if valid:
-            	    betweener = self.ids["cr{0}c{1}".format(((sourceRow + targetRow) / 2), ((sourceCol + targetCol) / 2))]
+            	    betweener = self.ids["cr{0}c{1}".format(int((sourceRow + targetRow) / 2), int((sourceCol + targetCol) / 2))]
             	    valid = valid and betweener.text == self.O
             	    if valid: self.betweener = betweener
         return valid
@@ -75,6 +75,12 @@ class CheckersTable(GridLayout):
                 cnt = cnt + 1
         return cnt
     
+    def getMessage(self, filled):
+        pm = ''
+        if filled > 1:
+            pm = 's'
+        return self.MSG.format(filled = filled, pm = pm)
+    
     def onReleaseHandler(self, obj):
         if self.selected == None:
             if obj.text == self.O:
@@ -89,7 +95,7 @@ class CheckersTable(GridLayout):
                 obj.text = self.O
                 if self.isOver():
                     filled = self.getCountFilled()
-                    msg = self.MSG.format(filled)
+                    msg = self.getMessage(filled)
                     if filled < 4:
                         checkersApp.resultScreen.stars.text = (self.STAR * ((4 - filled) % 4)).ljust(3, self.HOLE)
                     else:

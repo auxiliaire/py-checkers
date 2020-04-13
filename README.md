@@ -16,10 +16,14 @@ A screenshot of the app running on Linux:
 
 ![Linux screenshot](https://raw.githubusercontent.com/auxiliaire/py-checkers/master/PyCheckers%202018-03-06%2020-52-34.png)
 
+![Windows screenshot](https://raw.githubusercontent.com/auxiliaire/py-checkers/master/PyCheckers%202020-04-14%2012-05-00.png)
+
 #### Requires ####
 
-* Python 2.7 (3 may be an option)
-* Kivy 1.10.0 (`pip install kivy`)
+* Python 3 (2.7 may be an option)
+* Kivy > 1.10.0 (`pip install kivy`)
+
+Follow the instructions to install Kivy on the Kivy website: (https://kivy.org/doc/stable/gettingstarted/installation.html)
 
 #### How to run ####
 

@@ -11,10 +11,11 @@
     halign: 'center'
     valign: 'middle'
     background_normal: ''
-	#.2, .2, .3, 1
+	# .2, .2, .3, 1
     background_color: 1, 1, 1, 1
 	color: .251, .878, .816, 1
-    text: unichr(0xf111)
+    outline_width: 1
+    text: chr(0xf111)
 
 <UButton>:
     background_normal: ''
@@ -46,7 +47,7 @@
                 font_size: '26sp'
                 background_color: .973, .973, 1, 1
                 color: .125, .698, .667, 1
-                text: unichr(0xf0a8)
+                text: chr(0xf0a8)
                 size_hint: .1, 1
                 on_release:
                     root.back()
@@ -66,7 +67,7 @@
             size_hint: 1, .9
             
             Label:
-                text: "[size=20sp][b]How to play[/b][/size]\n\nThis is a standard Chinese Checkers implementation and the same rules apply:\nThere are two kinds of cells, filled and empty. The player has to 'jump' a button over another in order to remove.\n[b]The goal is to remove all but one button from the table.[/b]\n[b]1.[/b]  Press a filled cell to select a button to move.\n[b]2.[/b]  Select a valid destination to jump to:\n    an empty cell in the same row or column of the selected button that is in just one cell distance from the selected one which is filled, so that the selected one can jump over it to remove.\n[b]A selected button can only jump over filled cells.\nThe selected button can't jump over more than one cells.[/b]\n\n[size=20sp][b]Credits[/b][/size]\n\n[b]The entire application was written on a mobilephone![/b]\n[b]Device:[/b] LG G4\n[b]Language:[/b] Python, Kivy\n[b]Dev env:[/b] QPython\n[b]Developer:[/b] Viktor Daróczi\n[b]Year:[/b] 2016\nOnly packaging was done using a PC.\n\n[b]Enjoy![/b]"
+                text: "[size=20sp][b]How to play[/b][/size]\n\nThis is a standard Chinese Checkers implementation and the same rules apply:\nThere are two kinds of cells, filled and empty. The player has to 'jump' a button over another in order to remove.\n[b]The goal is to remove all but one button from the table.[/b]\n[b]1.[/b]  Press a filled cell to select a button to move.\n[b]2.[/b]  Select a valid destination to jump to:\n    an empty cell in the same row or column of the selected button that is in just one cell distance from the selected one which is filled, so that the selected one can jump over it to remove.\n[b]A selected button can only jump over filled cells.\nThe selected button can't jump over more than one cells.[/b]\n\n[size=20sp][b]Credits[/b][/size]\n\n[b]The entire application was written on a mobilephone![/b]\n[b]Device:[/b] LG G4\n[b]Language:[/b] Python, Kivy\n[b]Dev env:[/b] QPython\n[b]Developer:[/b] Viktor Daroczi\n[b]Year:[/b] 2016\nOnly packaging was done using a PC.\n\n[b]Enjoy![/b]"
                 text_size: self.width, None
                 halign: 'left'
                 valign: 'top'
@@ -112,12 +113,13 @@
             size_hint: 1, .1
         CIcon:
             id: stars
-            text: unichr(0xf006) * 3
+            text: chr(0xf006) * 3
             text_size: self.size
             font_size: '80sp'
             halign: 'center'
             valign: 'middle'
             color: .125, .698, .667, 1
+            outline_width: 1
             size_hint: 1, .6
         UButton:
             text: 'Restart'
@@ -377,7 +379,7 @@
             font_size: '26sp'
             background_color: .973, .973, 1, 1
             color: .125, .698, .667, 1
-            text: unichr(0xf015)
+            text: chr(0xf015)
             size_hint: .1, 1
             on_release:
                 root.home()
@@ -392,7 +394,7 @@
             font_size: '26sp'
             background_color: .973, .973, 1, 1
             color: .125, .698, .667, 1
-            text: unichr(0xf059)
+            text: chr(0xf059)
             size_hint: .1, 1
             on_release:
                 root.info()
