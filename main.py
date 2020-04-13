@@ -10,7 +10,7 @@ from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.button import Button
 from kivy.properties import ObjectProperty
 
-from checkers.checkersengine import CheckersEngine as CE
+from checkers import checkersengine as CE
 
 class CheckersTable(GridLayout):
     selected = ObjectProperty(None, allownone=True)
