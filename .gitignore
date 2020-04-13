@@ -6,3 +6,7 @@ bin
 .run.log
 *.apk
 *.zip
+*.pyc
+.ionide/
+.vscode/
+kivy_venv/

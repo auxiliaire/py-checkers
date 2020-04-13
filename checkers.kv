@@ -1,26 +1,18 @@
 <CButton>:
-    #canvas.before:
-    #    Color:
-    #        rgba: .2, .2, .3, 1
-    #    Rectangle:
-    #        pos: self.pos
-    #        size: self.size
+    background_color: 1, 1, 1, 1
+    background_normal: ''
+	color: .251, .878, .816, 1
     font_name: './font-awesome-4.6.3/fonts/fontawesome-webfont.ttf'
-    text_size: self.size
     font_size: '30sp'
     halign: 'center'
-    valign: 'middle'
-    background_normal: ''
-	# .2, .2, .3, 1
-    background_color: 1, 1, 1, 1
-	color: .251, .878, .816, 1
     outline_width: 1
     text: chr(0xf111)
+    text_size: self.size
+    valign: 'middle'
 
 <UButton>:
-    background_normal: ''
-	# .2, .2, .3, 1
     background_color: .125, .698, .667, 1
+    background_normal: ''
 
 <CIcon>:
     font_name: './font-awesome-4.6.3/fonts/fontawesome-webfont.ttf'
@@ -104,7 +96,7 @@
             size_hint: 1, .1
         Label:
             id: message
-            text: 'You\'ve just finished the game'
+            text: "You've just finished the game"
             text_size: self.size
             halign: 'center'
             valign: 'middle'

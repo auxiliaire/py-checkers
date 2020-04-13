@@ -1,119 +1,55 @@
-#-*-coding:utf8;-*-
+#-*-coding:utf-8;-*-
 #qpy:2
 #qpy:kivy
 
 from kivy.app import App
 from kivy.uix.label import Label
-#from kivy.uix.behaviors import ButtonBehavior
 from kivy.uix.screenmanager import ScreenManager, Screen
 from kivy.uix.gridlayout import GridLayout
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.button import Button
 from kivy.properties import ObjectProperty
 
-class CIcon(Label):
-    pass
-
-class CButton(Button):
-    pass
-    
-class UButton(Button):
-    pass
+from checkers.checkersengine import CheckersEngine
 
 class CheckersTable(GridLayout):
-    O = chr(0xf111)
-    X = chr(0xf1db)
-    STAR = chr(0xf005)
-    HOLE = chr(0xf006)
-    MSG = '{filled} button{pm} remained.'
-    GOAL = '\n[b]Try to achieve three or less to earn stars![/b]'
-    COMMENTS = {
-    	    3: '\n[b]Not bad![/b]',
-    	    2: '\n[b]Well done![/b]',
-    	    1: '\n[b]Perfect![/b]'
-    	}
-    
     selected = ObjectProperty(None, allownone=True)
-    betweener = ObjectProperty(None, allownone=True)
     
-    def isValidMove(self, obj):
-        valid = False
-        self.betweener = None
-        if self.selected != None:
-            sourceRow = self.selected.row
-            sourceCol = self.selected.col
-            targetRow = obj.row
-            targetCol = obj.col
-            valid = ((sourceRow == targetRow
-            	    and abs(sourceCol - targetCol) == 2)
-            	  or (sourceCol == targetCol
-            	    and abs(sourceRow - targetRow) == 2)
-            	)
-            if valid:
-            	    betweener = self.ids["cr{0}c{1}".format(int((sourceRow + targetRow) / 2), int((sourceCol + targetCol) / 2))]
-            	    valid = valid and betweener.text == self.O
-            	    if valid: self.betweener = betweener
-        return valid
-    
-    def isOver(self):
-        temp = self.selected
-        for source in self.ids:
-            if self.ids[source].text == self.O:
-                self.selected = self.ids[source]
-            for dest in self.ids:
-                if self.ids[dest].text == '':
-                    if self.isValidMove(self.ids[dest]):
-                        self.selected = temp
-                        return False
-        self.selected = temp
-        return True
-    
-    def getCountFilled(self):
-        cnt = 0
-        for cell in self.ids:
-            if self.ids[cell].text == self.O:
-                cnt = cnt + 1
-        return cnt
-    
-    def getMessage(self, filled):
-        pm = ''
-        if filled > 1:
-            pm = 's'
-        return self.MSG.format(filled = filled, pm = pm)
-    
-    def onReleaseHandler(self, obj):
+    def onReleaseHandler(self, cell):
         if self.selected == None:
-            if obj.text == self.O:
-                self.selected = obj
-                obj.text = self.X
+            self.selectCell(cell)
         else:
-            if obj.text == '' and self.isValidMove(obj):
-                self.selected.text = ''
+            if CheckersEngine.isValidMove(self.ids, self.selected, cell):
+                self.move(cell)
                 self.selected = None
-                self.betweener.text = ''
-                self.betweener = None
-                obj.text = self.O
-                if self.isOver():
-                    filled = self.getCountFilled()
-                    msg = self.getMessage(filled)
-                    if filled < 4:
-                        checkersApp.resultScreen.stars.text = (self.STAR * ((4 - filled) % 4)).ljust(3, self.HOLE)
-                    else:
-                        checkersApp.resultScreen.stars.text = self.HOLE * 3
-                    msg += self.COMMENTS.get(filled, self.GOAL)
-                    checkersApp.resultScreen.message.text = msg
-                    checkersApp.sm.transition.direction = 'left'
-                    checkersApp.sm.current = 'result'
+                CheckersEngine.checkGameOver(self.ids, self.onGameOver)
             else:
-                self.selected.text = self.O
-                self.selected = None
+                self.cancelSelection()
+
+    def selectCell(self, cell):
+        if cell.text == CheckersEngine.O:
+            self.selected = cell
+            cell.text = CheckersEngine.X
+
+    def move(self, cell):
+        self.selected.text, CheckersEngine.getMiddleCell(self.ids, self.selected, cell).text, cell.text = CheckersEngine.MOVE
+
+    def onGameOver(self, filled):
+        checkersApp.resultScreen.stars.text = CheckersEngine.getStarsResult(filled)
+        checkersApp.resultScreen.message.text = CheckersEngine.getMessage(filled)
+        checkersApp.sm.transition.direction = 'left'
+        checkersApp.sm.current = 'result'
+
+    def cancelSelection(self):
+        self.selected.text = CheckersEngine.O
+        self.selected = None
 
 class CheckersGame(BoxLayout):
     table = ObjectProperty(None)
     
     def reset(self):
         for cell in self.table.ids:
-            self.table.ids[cell].text = self.table.O
+            self.table.ids[cell].text = CheckersEngine.O
         self.table.ids.cr3c3.text = ''
     
     def home(self):
@@ -181,6 +117,15 @@ class CheckersApp(App):
                 return True
             else:
                 self.stop()
+
+class CIcon(Label):
+    pass
+
+class CButton(Button):
+    pass
+    
+class UButton(Button):
+    pass
 
 if __name__ == '__main__':
     checkersApp = CheckersApp()
