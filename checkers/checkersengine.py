@@ -19,9 +19,11 @@ def checkGameOver(board, onGameOver):
         onGameOver(getCountFilled(board))
 
 def isOver(board):
-    return not any(board, lambda source, _:
-        isFilled(source)
-        and any(board, lambda dest, _: isValidMove(board, source, dest)))
+    return not any(board, lambda cell, _:
+        isFilled(cell) and canMove(board, cell))
+
+def canMove(board, cell):
+    return any(board, lambda dest, _: isValidMove(board, cell, dest))
 
 def isFilled(cell):
     return cell.text == O
